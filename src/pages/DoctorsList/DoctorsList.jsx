@@ -18,7 +18,7 @@ const DoctorsList = () => {
       <h1>DoctorsList</h1>
       <Row className="g-3">
         {doctorList?.map((item, index, array) => (
-          <Col xs={12} key={`doctor-${index}`} className="border">
+          <Col xs={12} key={`doctor-${index}`} className="border" height="15rem">
             <Row>
               <Col xd={12} md={4}>
                 <img
@@ -36,14 +36,27 @@ const DoctorsList = () => {
                 />
               </Col>
 
-              <Col xd={12} md={8}>
+              <Col xd={12} md={5}>
                 <h2>{item.name}</h2>
                 <p className="fs-4">
                   <FaDollarSign />
                   {item.price} LE
                 </p>
+
                 <p className="fs-4">{item.experince}</p>
                 <Button>Book</Button>
+              </Col>
+              <Col xd={12} md={3} style={{height:"100%",overFlow:"hidden",}}>
+                {item.doctor_schedules.map((item) => (
+                  <Row className="py-3">
+                    <Button>
+                      <p>{item.day}</p>
+                      <p>{item.time_from}</p>
+                      <p>{item.time_to}</p>
+                    </Button>
+                  </Row>
+                  
+                ))}
               </Col>
             </Row>
           </Col>
