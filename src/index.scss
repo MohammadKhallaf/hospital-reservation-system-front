@@ -1,0 +1,12 @@
+/* SCSS HEX */
+$sapphire-blue: #2f6690;
+$celadon-blue: #3a7ca5;
+$gainsboro: #d9dcd6;
+$indigo-dye: #16425b;
+$dark-sky-blue: #81c3d7;
+
+$primary: $celadon-blue;
+$scondary: $gainsboro;
+$dark: $indigo-dye;
+
+@import "~bootstrap/scss/bootstrap.scss";
