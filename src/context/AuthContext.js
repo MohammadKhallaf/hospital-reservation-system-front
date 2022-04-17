@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginUser = (username, password) => {
     axios
-      .post("http://localhost:8000/api/token/", { username, password })
+      .post("api/token/", { username, password })
       .then((res) => {
         setAuthTokens(res.data);
         setUser(jwt_decode(res.data.access));
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     if (!authTokens) return;
     console.log("update")
     axios
-      .post("http://localhost:8000/api/token/refresh/", {
+      .post("api/token/refresh/", {
         refresh: authTokens?.refresh,
       })
       .then((res) => {
