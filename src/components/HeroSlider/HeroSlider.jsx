@@ -1,45 +1,33 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import "./HeroSlider.scss";
 const HeroSlider = () => {
   return (
-    <Carousel variant="dark">
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=First slide&bg=f5f5f5"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Second slide&bg=eee"
-          alt="Second slide"
-        />
-        <Carousel.Caption>
-          <h5>Second slide label</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=e5e5e5"
-          alt="Third slide"
-        />
-        <Carousel.Caption>
-          <h5>Third slide label</h5>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+    <Container
+      as="section"
+      fluid="fluid"
+      className="hero-section  py-5 text-center"
+    >
+      <Row className="py-lg-5">
+        <Col md={8} lg={6} className="mx-auto">
+          <h1 className="fw-bolder ">
+            Fountain Valley Hospital
+          </h1>
+          <p className="lead text-dark fs-4">
+            We provide the best service and the experinced doctors
           </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+          <p className="pt-5 d-flex gap-5 justify-content-center align-items-center">
+            <Link to="/login" className="btn btn-primary">
+              Login
+            </Link>
+            <Link to="/login" className="text-muted">
+              Register
+            </Link>
+          </p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
