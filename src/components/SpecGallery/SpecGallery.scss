@@ -1,0 +1,12 @@
+.spec-card {
+
+  * {
+    transition: all cubic-bezier(0.68, -0.55, 0.27, 1.55) 250ms;
+  }
+  &:hover {
+    & .card {
+      transform: scale(1.02);
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
