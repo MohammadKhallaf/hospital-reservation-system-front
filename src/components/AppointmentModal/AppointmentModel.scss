@@ -1,0 +1,10 @@
+form {
+  #dateTimeField {
+    &:valid {
+      border: 2px #2d936c solid;
+    }
+    &:invalid {
+      border: 2px red solid;
+    }
+  }
+}
