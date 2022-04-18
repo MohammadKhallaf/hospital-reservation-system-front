@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
 import { Container, Row, Col } from "react-bootstrap";
-import "./HeroSlider.scss";
+
 import AuthContext from "../../context/AuthContext";
+
+import "./HeroSlider.scss";
+
 const HeroSlider = () => {
   const { user } = useContext(AuthContext);
   return (

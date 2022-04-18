@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
-import { RiHeartPulseFill } from "react-icons/ri";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { NavLink, Link } from "react-router-dom";
 
-import "./SiteNav.scss";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { RiHeartPulseFill } from "react-icons/ri";
+
 import AuthContext from "../../context/AuthContext";
+
+import "./SiteNav.scss";
+
 const SiteNav = () => {
   const { user, logoutUser } = useContext(AuthContext);
+
   return (
     <Navbar bg="dark" expand="lg" variant="dark" className="sticky-top">
       <Container>
@@ -32,9 +36,10 @@ const SiteNav = () => {
               <>
                 <NavLink to="/hospitalAdmin" className="text-decoration-none">
                   <Nav.Link as="span">Doctors Appointments</Nav.Link>
-                  
                 </NavLink>
-                <Nav.Link href={process.env.PUBLIC_URL + "admin"}>Admin Site</Nav.Link>
+                <Nav.Link href={process.env.PUBLIC_URL + "admin"}>
+                  Admin Site
+                </Nav.Link>
               </>
             ) : null}
 

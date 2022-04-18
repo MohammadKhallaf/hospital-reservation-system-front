@@ -1,22 +1,17 @@
-/* SCSS HEX */
-$sapphire-blue: #2f6690;
 $celadon-blue: #3a7ca5;
 $gainsboro: #d9dcd6;
-$indigo-dye: #16425b;
-$dark-sky-blue: #81c3d7;
-$amaranth: #df3b57;
-$green-cyan: #2d936c;
 $blue-munsell: #1b9aaaff;
-$amber-sae-ece: #ff7f11;
+$green-cyan: #2d936c;
+$indigo-dye: #16425b;
+$amaranth: #df3b57;
 $amber: #ffbe0b;
-
-$baby-powder: #fffffc;
 
 $primary: $celadon-blue;
 $secondary: $gainsboro;
 $info: $blue-munsell;
 $success: $green-cyan;
 $dark: $indigo-dye;
+$danger: $amaranth;
 $warning: $amber;
 
 @import "~bootstrap/scss/bootstrap.scss";

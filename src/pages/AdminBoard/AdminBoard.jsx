@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+
+import toastify from "toastify-js";
 import {
   Button,
   Col,
@@ -9,32 +11,21 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+
 import AuthContext from "../../context/AuthContext";
-// axios
-//   .post(
-//     "api/doctors/5/pdf",
-//     {
-//       doctor: 1,
-//       date: "2022-04-17",
-//     },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${authTokens?.access}`,
-//       },
-//     }
-//   )
 
 const AdminBoard = () => {
   const { authTokens } = useContext(AuthContext);
-  const [data, setData] = useState([]);
-  const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [data, setData] = useState([]);
 
   const selectDoctorHandler = (e) => {
     e.preventDefault();
+
     const doctor = e.target.doctor.value;
     const date = e.target.date.value;
-    console.log(doctor,date)
+
     axios
       .post(
         `api/doctors/${doctor}/pdf/`,
@@ -47,8 +38,18 @@ const AdminBoard = () => {
       )
       .then((res) => {
         setData(res.data);
+      })
+      .catch((e) => {
+        toastify({
+          text: "An error occured",
+          duration: 3000,
+          style: {
+            background: "linear-gradient(to right, #a71d31, #6b0f1a)",
+          },
+        }).showToast();
       });
   };
+
   const getAppointments = (e) => {
     axios
       .get("api/doctors/appointments/" + e.target.value, {
@@ -61,11 +62,33 @@ const AdminBoard = () => {
           .map((item) => item.date)
           .filter((item, index, arr) => arr.indexOf(item) === index);
         setAppointments(dates);
-      });
+      })
+      .catch((e) =>
+        toastify({
+          text: "An error occured",
+          duration: 3000,
+          style: {
+            background: "linear-gradient(to right, #a71d31, #6b0f1a)",
+          },
+        }).showToast()
+      );
   };
+
   useEffect(() => {
-    axios.get("api/doctors/").then((res) => setDoctors(res.data));
+    axios
+      .get("api/doctors/")
+      .then((res) => setDoctors(res.data))
+      .catch((e) =>
+        toastify({
+          text: "An error occured",
+          duration: 3000,
+          style: {
+            background: "linear-gradient(to right, #a71d31, #6b0f1a)",
+          },
+        }).showToast()
+      );
   }, []);
+
   return (
     <Container className="pt-5">
       <Form onSubmit={selectDoctorHandler}>
@@ -100,6 +123,7 @@ const AdminBoard = () => {
           </Col>
         </Row>
       </Form>
+
       <Table striped bordered hover>
         <thead>
           <tr>

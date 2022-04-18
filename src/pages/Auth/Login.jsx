@@ -1,19 +1,25 @@
 import React, { useContext } from "react";
-import { Button, Container, Form } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
+
+import { Button, Container, Form } from "react-bootstrap";
+
+import AuthContext from "../../context/AuthContext";
+
 const Login = () => {
-  const navigate = useNavigate();
   const { loginUser, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const login = (e) => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
     loginUser(username, password);
   };
+
   if (user) {
     return <Navigate to="/" replace />;
   }
+
   return (
     <Container className="p-5 w-50 border mt-5 shadow rounded">
       <h1 className="text-center fw-bolder">Log In</h1>
@@ -39,6 +45,7 @@ const Login = () => {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+
         <Button
           variant="link"
           type="button"

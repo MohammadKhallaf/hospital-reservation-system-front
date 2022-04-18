@@ -1,24 +1,30 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+import AuthContext from "../../context/AuthContext";
+
 import { Button, Modal, Form, InputGroup } from "react-bootstrap";
 import { BsCalendarDateFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import "./AppointmentModel.scss";
-import AuthContext from "../../context/AuthContext";
-import axios from "axios";
 import toastify from "toastify-js";
 
-const AppointmentModel = ({ data: { name, id }, ...props }) => {
+import "./AppointmentModel.scss";
+
+const AppointmentModel = ({ data: { name, id: doctor }, ...props }) => {
   const { authTokens } = useContext(AuthContext);
-  const dateTimeRef = useRef();
   const [load, setLoad] = useState(false);
+  const dateTimeRef = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const DateTimeValue = e.target.bookingTime.value;
     const date = dayjs(DateTimeValue).format("YYYY-MM-DD");
     const time = dayjs(DateTimeValue).format("HH:MM");
-    const doctor = id;
+
     setLoad(true);
+
     axios
       .post(
         "api/patients/appointments/create/",
@@ -36,10 +42,8 @@ const AppointmentModel = ({ data: { name, id }, ...props }) => {
       .then((res) => {
         setLoad(false);
         props.onHide();
-
         toastify({
           text: "Appointment Booked successfully",
-
           duration: 3000,
         }).showToast();
       })
@@ -47,10 +51,10 @@ const AppointmentModel = ({ data: { name, id }, ...props }) => {
         setLoad(false);
         toastify({
           text: "An error occured",
-          style: {
-            background: "linear-gradient(315deg, #3f0d12 0%, #6b0f1a 74%)",
-          },
           duration: 3000,
+          style: {
+            background: "linear-gradient(to right, #a71d31, #6b0f1a)",
+          },
         }).showToast();
       });
   };
@@ -61,7 +65,7 @@ const AppointmentModel = ({ data: { name, id }, ...props }) => {
 
   return (
     <>
-      <Modal {...props} backdrop="static" keyboard={false} className="fade">
+      <Modal {...props} backdrop="static" className="fade">
         <Modal.Header closeButton>
           <Modal.Title>Book an appointment</Modal.Title>
         </Modal.Header>
@@ -83,7 +87,6 @@ const AppointmentModel = ({ data: { name, id }, ...props }) => {
                   id="dateTimeField"
                   ref={dateTimeRef}
                   min={dayjs().format("YYYY-MM-DDTHH:mm")}
-                  // value={dayjs().format("YYYY-MM-DDTHH:mm")}
                   pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
                   name="bookingTime"
                   required

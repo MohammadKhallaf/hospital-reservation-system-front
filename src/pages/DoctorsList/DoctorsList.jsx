@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AppointmentModel from "../../components/AppointmentModal/AppointmentModel";
+
 import axios from "axios";
 
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { FaDollarSign, FaRegClock } from "react-icons/fa";
-import { FcClock, FcMoneyTransfer } from "react-icons/fc";
-import "./DoctorList.scss";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
+import toastify from "toastify-js";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { FcClock, FcMoneyTransfer } from "react-icons/fc";
+
+import AppointmentModel from "../../components/AppointmentModal/AppointmentModel";
+
+import "./DoctorList.scss";
+
 const DoctorsList = () => {
-  const Dayjs = dayjs;
-  Dayjs.extend(customParseFormat);
   const [modalState, setModalState] = useState({ show: false, data: {} });
-  const params = useParams();
   const [doctorList, setDoctorList] = useState([]);
   const [header, setHeader] = useState("No Doctors Available Yet");
 
+  const params = useParams();
+
+  const Dayjs = dayjs;
+  Dayjs.extend(customParseFormat);
+
   useEffect(() => {
-    axios.get("api/doctors/specializations/" + params.listId).then((e) => {
-      setDoctorList(e.data);
-      setHeader(e.data[0].specialization.name);
-    });
+    axios
+      .get("api/doctors/specializations/" + params.listId)
+      .then((e) => {
+        setDoctorList(e.data);
+        setHeader(e.data[0].specialization.name);
+      })
+      .catch(() => {
+        toastify({
+          text: "An error occured",
+          duration: 3000,
+          style: {
+            background: "linear-gradient(to right, #a71d31, #6b0f1a)",
+          },
+        }).showToast();
+      });
   }, [params.listId]);
 
   return (
@@ -34,6 +51,7 @@ const DoctorsList = () => {
       />
 
       <h1>{header}</h1>
+
       <Row className="gap-3 p-3">
         {doctorList?.map((item, index, array) => (
           <Col
@@ -70,10 +88,10 @@ const DoctorsList = () => {
                 {Dayjs(item.arrival_time, "HH:mm:ss").format("hh:mm A")}
               </time>
             </Col>
+
             <Col
               xd={12}
               md={3}
-              // style={{ height: "100%", overFlow: "hidden" }}
               className=" d-flex align-items-end justify-content-end p-3"
             >
               <Button

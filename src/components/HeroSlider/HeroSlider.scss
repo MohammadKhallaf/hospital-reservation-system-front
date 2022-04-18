@@ -1,5 +1,9 @@
 .hero-section {
-  background: linear-gradient(210deg, rgba(55, 200, 223, 0.366), rgba(244, 252, 255, 0.657)),
+  background: linear-gradient(
+      210deg,
+      rgba(55, 200, 223, 0.366),
+      rgba(244, 252, 255, 0.657)
+    ),
     url("../../assets/headers/header-2.jpg") no-repeat center;
   background-size: cover;
 }
