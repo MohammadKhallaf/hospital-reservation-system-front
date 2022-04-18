@@ -6,9 +6,9 @@ import { NavLink, Link } from "react-router-dom";
 import "./SiteNav.scss";
 import AuthContext from "../../context/AuthContext";
 const SiteNav = () => {
-  const { logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar bg="dark" expand="lg" variant="dark" className="sticky-top">
       <Container>
         <Link to="/" className="text-decoration-none">
           <Navbar.Brand
@@ -28,16 +28,30 @@ const SiteNav = () => {
             <NavLink to="/" className="text-decoration-none">
               <Nav.Link as="span">Home</Nav.Link>
             </NavLink>
-            <Nav.Link>Link</Nav.Link>
-            <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavLink to="login" className="text-decoration-none">
-                <NavDropdown.Item as="span">Login</NavDropdown.Item>
-              </NavLink>
-              <NavLink to="register" className="text-decoration-none">
-                <NavDropdown.Item as="span">Register</NavDropdown.Item>
-              </NavLink>
+            {user?.is_staff ? (
+              <>
+                <NavLink to="/hospitalAdmin" className="text-decoration-none">
+                  <Nav.Link as="span">Doctors Appointments</Nav.Link>
+                  
+                </NavLink>
+                <Nav.Link href={process.env.PUBLIC_URL + "admin"}>Admin Site</Nav.Link>
+              </>
+            ) : null}
 
-              <NavDropdown.Item onClick={logoutUser}>Logout</NavDropdown.Item>
+            <NavDropdown title="Account" id="basic-nav-dropdown">
+              {user ? (
+                <NavDropdown.Item onClick={logoutUser}>Logout</NavDropdown.Item>
+              ) : (
+                <>
+                  <NavLink to="login" className="text-decoration-none">
+                    <NavDropdown.Item as="span">Login</NavDropdown.Item>
+                  </NavLink>
+
+                  <NavLink to="register" className="text-decoration-none">
+                    <NavDropdown.Item as="span">Register</NavDropdown.Item>
+                  </NavLink>
+                </>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
